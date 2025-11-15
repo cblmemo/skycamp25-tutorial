@@ -1,0 +1,18 @@
+resources:
+  any_of:
+    - cloud: kubernetes
+      image_id: docker:rocm/vllm:latest
+      accelerators: MI300:1
+    - image_id: docker:vllm/vllm-openai:latest
+      accelerators: L4:1
+  cpus: 16
+  memory: 64+
+
+run: |
+  vllm run-batch \
+    -i https://raw.githubusercontent.com/cblmemo/skycamp25-tutorial/refs/heads/main/02_batch_inference/batch_input.jsonl \
+    -o results.jsonl \
+    --max-model-len 4096 \
+    --enforce-eager \
+    --model Qwen/Qwen3-4B-Instruct-2507
+  cat results.jsonl

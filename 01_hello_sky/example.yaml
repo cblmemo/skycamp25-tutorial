@@ -1,0 +1,11 @@
+# example.yaml
+name: example
+
+setup: |
+  echo "Run any setup commands here"
+  pip install cowsay
+
+run: |
+  nvidia-smi
+  echo "Hello SkyPilot!"
+  cowsay -t "Moo! SkyPilot!"
